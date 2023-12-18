@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\CandidatureController;
+use App\Http\Controllers\API\FormationController;
 use App\Http\Controllers\API\UserController;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
@@ -31,5 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/update', [UserController::class, 'update']);
 });
 
+Route::group(['middleware' => 'admin'], function () {
+    Route::apiResource('formations', FormationController::class);
+});
+
+// Route::apiResource('candidatures', CandidatureController::class);
+Route::post('/candidature/{formation}', [CandidatureController::class, 'store']);
 Route::post('/inscription', [UserController::class, 'store']);
 Route::post('/login', [UserController::class, 'login']);

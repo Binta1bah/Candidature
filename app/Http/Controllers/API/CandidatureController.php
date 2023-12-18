@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Models\Candidature;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Formation;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class CandidatureController extends Controller
 {
@@ -13,7 +15,11 @@ class CandidatureController extends Controller
      */
     public function index()
     {
-        //
+        $candidatures = Candidature::all();
+        return response()->json([
+            'message' => 'Liste des Candidatures',
+            'Candidatures' => $candidatures
+        ]);
     }
 
     /**
@@ -27,9 +33,22 @@ class CandidatureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Formation $formation)
     {
-        //
+        $user =  auth()->user();
+
+        $candidature = new Candidature();
+
+        $candidature->user_id = $user->id;
+        // $candidature->formation_id = $request->formation_id;
+        $candidature->formation_id = $formation->id;
+
+        if ($candidature->save()) {
+            return response()->json([
+                'message' => 'Candidature ajoutée',
+                'candidature' => $candidature
+            ]);
+        }
     }
 
     /**
@@ -61,6 +80,9 @@ class CandidatureController extends Controller
      */
     public function destroy(Candidature $candidature)
     {
-        //
+        $candidature->delete();
+        return response()->json([
+            'message' => 'Candidature supprimée avec succes'
+        ]);
     }
 }
