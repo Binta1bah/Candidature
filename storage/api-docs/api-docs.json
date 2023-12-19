@@ -1,0 +1,399 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "endPoind",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/candidatures": {
+            "get": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "liste de tout les candidatures par l'admin",
+                "operationId": "901f2e3aabc628534995e87834ad378f",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "ajouter d'une candidature",
+                "operationId": "37edc19bbdce867b226c502cf84f5e62",
+                "responses": {
+                    "201": {
+                        "description": "enregistrer avec succes"
+                    }
+                }
+            }
+        },
+        "/api/mesCandidatures": {
+            "get": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "lists des candidatures d'un candidats données",
+                "operationId": "18f4505bc3caedf93d7a749e589435ec",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/candidaturesFormation/{formation}": {
+            "get": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "lists des candidatures d'une formation données avec les listes des candidature acceptées, \n     *     refusées et en attentes pour la formation",
+                "operationId": "3c21f9e28f4d4e0897a40d0caf3ee757",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de a formation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/candudatures/{candidature}": {
+            "get": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "details d'une candidature",
+                "operationId": "7c75ce6847116b323f1f734b69cc8daa",
+                "parameters": [
+                    {
+                        "name": "candidature",
+                        "in": "path",
+                        "description": "ID de la candidature",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/accepter/{candidature}": {
+            "put": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "Accepter une candidature par l'admin",
+                "operationId": "9f529853255b4219ac8f1005ff078224",
+                "parameters": [
+                    {
+                        "name": "candidature",
+                        "in": "path",
+                        "description": "ID de la candidature",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/refuser/{candidature}": {
+            "put": {
+                "tags": [
+                    "Candidature"
+                ],
+                "summary": "refuser une candidature par l'admin",
+                "operationId": "fd2f0b1cfb3cc17638ba0f3eeb91d9cb",
+                "parameters": [
+                    {
+                        "name": "candidature",
+                        "in": "path",
+                        "description": "ID de la candidature",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/formations": {
+            "get": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "liste de toutes les formations",
+                "operationId": "e27e45808c70a2393a4a6ec4d840d4c9",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "ajouter une formation par l'admin",
+                "operationId": "4c8624ac9434cc4b60700a82353133a9",
+                "responses": {
+                    "201": {
+                        "description": "enregistrer avec succes"
+                    }
+                }
+            }
+        },
+        "/api/formations/{formation}": {
+            "get": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "details d'une formation",
+                "operationId": "369b5b3ce8a7cb1a63ddd7ee2dcb536e",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la formation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "modifier une formation par l'admin",
+                "operationId": "2f5422f340a116a75ac035ebd50fad3b",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la formation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/formationsCloturees": {
+            "get": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "liste de toutes les formations cloturées",
+                "operationId": "bd95184da1147d039a90127ab1115b04",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/formationsNonCloturees": {
+            "get": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "liste de toutes les formations non cloturées",
+                "operationId": "52be93b5d2ea18e6a727fd68d94d5db5",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/cloturer/{formation}": {
+            "put": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "Cloturer une formation par l'admin",
+                "operationId": "a3f9fad52eb10d47320e8c46ff7f9ff5",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la formation",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/formations{formation}": {
+            "delete": {
+                "tags": [
+                    "Formation"
+                ],
+                "summary": "supprimer une formation par l'admin",
+                "operationId": "20d968e63774e8ba586bf4c896b68468",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/candidats": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "liste de toutes les candidats",
+                "operationId": "57e090a67427dbaa0a947c42b9775d0a",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/inscription": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "inscription d'un user",
+                "operationId": "eaff5e7db462e94c945005dd5c3fbd9e",
+                "responses": {
+                    "200": {
+                        "description": "enregistrer succes"
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "connexion d'un user",
+                "operationId": "2526fe2d44c926504aa3663c8f10a15c",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/info": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "information de profil d'un user",
+                "operationId": "46f3a967424e5a1901bee2beb00c7a57",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/logout": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Deconnexion d'un user",
+                "operationId": "40df188cd09e9b58776a39fcd3671970",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/refresh": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Raffrechir le token d'un user",
+                "operationId": "4eb6e524c79adb3a0440b54ce3850a35",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        },
+        "/api/update": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Modifier le profil d'un user",
+                "operationId": "7de07a8d851ffc528b73f4bd8df1ef80",
+                "responses": {
+                    "200": {
+                        "description": "succes"
+                    }
+                }
+            }
+        }
+    }
+}

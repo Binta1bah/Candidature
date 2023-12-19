@@ -7,16 +7,24 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Promise\Create;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use OpenApi\Annotations as OA;
+
 
 class FormationController extends Controller
 {
 
 
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/formations",
+     * tags={"Formation"}, 
+     *     summary="liste de toutes les formations",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function index()
     {
+        // Gate::authorize('index', Formation::class);
         $formations = Formation::all();
         return response()->json([
             'message' => 'Liste des formations',
@@ -32,8 +40,14 @@ class FormationController extends Controller
         //
     }
 
+
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/formations",
+     *      tags={"Formation"}, 
+     *     summary="ajouter une formation par l'admin",
+     *     @OA\Response(response="201", description="enregistrer avec succes")
+     * )
      */
     public function store(Request $request)
     {
@@ -56,7 +70,19 @@ class FormationController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\get(
+     *     path="/api/formations/{formation}",
+     * tags={"Formation"}, 
+     *     summary="details d'une formation",
+     *  @OA\Parameter(
+     *         name="formation",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la formation",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function show(Formation $formation)
     {
@@ -66,6 +92,16 @@ class FormationController extends Controller
         ]);
     }
 
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/formationsCloturees",
+     * tags={"Formation"}, 
+     *     summary="liste de toutes les formations cloturées",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function formationCloturee()
     {
         $formations = Formation::where('cloturee', 1)->get();
@@ -76,6 +112,14 @@ class FormationController extends Controller
     }
 
 
+    /**
+     * @OA\Get(
+     *     path="/api/formationsNonCloturees",
+     * tags={"Formation"}, 
+     *     summary="liste de toutes les formations non cloturées",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function formationNonCloturee()
     {
         $formations = Formation::where('cloturee', 0)->get();
@@ -86,7 +130,19 @@ class FormationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @OA\put(
+     *     path="/api/cloturer/{formation}",
+     * tags={"Formation"}, 
+     *     summary="Cloturer une formation par l'admin",
+     *  @OA\Parameter(
+     *         name="formation",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la formation",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function edit(Formation $formation)
     {
@@ -97,8 +153,21 @@ class FormationController extends Controller
         ]);
     }
 
+
     /**
-     * Update the specified resource in storage.
+     * @OA\put(
+     *     path="/api/formations/{formation}",
+     * tags={"Formation"}, 
+     *     summary="modifier une formation par l'admin",
+     *  @OA\Parameter(
+     *         name="formation",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la formation",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function update(Request $request, Formation $formation)
     {
@@ -110,7 +179,6 @@ class FormationController extends Controller
 
         ]);
         // dd($formation);
-
         $formation->update($validation);
         if ($formation) {
             return response()->json([
@@ -125,7 +193,19 @@ class FormationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\delete(
+     *     path="/api/formations{formation}",
+     * tags={"Formation"}, 
+     *     summary="supprimer une formation par l'admin",
+     *  @OA\Parameter(
+     *         name="formation",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function destroy(Formation $formation)
     {

@@ -13,15 +13,26 @@ use function Laravel\Prompts\password;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OpenApi\Annotations as OA;
+
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/candidats",
+     * tags={"User"},
+     *     summary="liste de toutes les candidats",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function index()
     {
-        //
+        $candidats = User::where('role', 'Candidat')->get();
+        return response()->json([
+            'message' => 'La liste des candidats',
+            'Candidats' => $candidats
+        ]);
     }
 
     /**
@@ -57,7 +68,12 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\post(
+     *     path="/api/inscription",
+     * tags={"User"},
+     *     summary="inscription d'un user",
+     *     @OA\Response(response="200", description="enregistrer succes")
+     * )
      */
     public function store(Request $request)
     {
@@ -89,6 +105,14 @@ class UserController extends Controller
     }
 
 
+    /**
+     * @OA\post(
+     *     path="/api/login",
+     * tags={"User"},
+     *     summary="connexion d'un user",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function login(Request $request)
     {
         $request->validate([
@@ -107,21 +131,14 @@ class UserController extends Controller
     }
 
 
-    // public function logout(): Response
-    // {
-    //     $user = Auth::user();
-
-    //     $user->currentAccessToken()->delete();
-
-    //     return Response([
-    //         'message' => 'Deconnexion effectuée'
-    //     ], 200);
-    // }
-
-
 
     /**
-     * Display the specified resource.
+     * @OA\get(
+     *     path="/api/info",
+     * tags={"User"},
+     *     summary="information de profil d'un user",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function show()
     {
@@ -131,6 +148,14 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @OA\get(
+     *     path="/api/logout",
+     * tags={"User"},
+     *     summary="Deconnexion d'un user",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function logout()
     {
         auth()->logout();
@@ -139,6 +164,15 @@ class UserController extends Controller
         ]);
     }
 
+
+    /**
+     * @OA\get(
+     *     path="/api/refresh",
+     * tags={"User"},
+     *     summary="Raffrechir le token d'un user",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function refresh()
     {
         return $this->respondWithToken(auth()->refresh());
@@ -153,7 +187,12 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\put(
+     *     path="/api/update",
+     * tags={"User"},
+     *     summary="Modifier le profil d'un user",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function update(Request $request)
     {

@@ -40,6 +40,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/accepter/{candidature}', [CandidatureController::class, 'accepter']);
     Route::put('/refuser/{candidature}', [CandidatureController::class, 'refuser']);
     Route::get('/candidaturesFormation/{formation}', [CandidatureController::class, 'CandidaturesFormation']);
+    Route::get('/candidats', [UserController::class, 'index']);
 });
 
 Route::apiResource('formations', FormationController::class);

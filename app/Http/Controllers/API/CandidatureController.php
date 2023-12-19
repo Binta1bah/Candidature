@@ -11,12 +11,21 @@ use App\Mail\MailRefuser;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
+use OpenApi\Annotations as OA;
+
+
 
 class CandidatureController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/candidatures",
+     * tags={"Candidature"},
+     *     summary="liste de tout les candidatures par l'admin",
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
+
     public function index()
     {
         Gate::authorize('store', Candidature::class);
@@ -27,6 +36,16 @@ class CandidatureController extends Controller
             'Candidatures' => $candidatures
         ]);
     }
+
+    /**
+     * @OA\Get(
+     *     path="/api/mesCandidatures",
+     * tags={"Candidature"},
+     *     summary="lists des candidatures d'un candidats données",
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
+
 
     public function mesCandidatures()
     {
@@ -39,7 +58,22 @@ class CandidatureController extends Controller
         ]);
     }
 
-
+    /**
+     * @OA\Get(
+     *     path="/api/candidaturesFormation/{formation}",
+     * tags={"Candidature"},
+     *     summary="lists des candidatures d'une formation données avec les listes des candidature acceptées, 
+     *     refusées et en attentes pour la formation",
+     * @OA\Parameter(
+     *         name="formation",
+     *         in="path",
+     *         required=true,
+     *         description="ID de a formation",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function CandidaturesFormation(Formation $formation)
     {
         $candidatureAccept = [];
@@ -82,7 +116,12 @@ class CandidatureController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *     path="/api/candidatures",
+     * tags={"Candidature"},
+     *     summary="ajouter d'une candidature",
+     *     @OA\Response(response="201", description="enregistrer avec succes")
+     * )
      */
     public function store(Request $request, Formation $formation)
     {
@@ -108,7 +147,19 @@ class CandidatureController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * @OA\get(
+     *     path="/api/candudatures/{candidature}",
+     * tags={"Candidature"},
+     *     summary="details d'une candidature",
+     *  @OA\Parameter(
+     *         name="candidature",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la candidature",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function show(Candidature $candidature)
     {
@@ -125,7 +176,19 @@ class CandidatureController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * @OA\put(
+     *     path="/api/accepter/{candidature}",
+     * tags={"Candidature"},
+     *     summary="Accepter une candidature par l'admin",
+     *  @OA\Parameter(
+     *         name="candidature",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la candidature",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
      */
     public function accepter(Candidature $candidature)
     {
@@ -139,7 +202,21 @@ class CandidatureController extends Controller
         }
     }
 
-
+    /**
+     * @OA\put(
+     *     path="/api/refuser/{candidature}",
+     * tags={"Candidature"},
+     *     summary="refuser une candidature par l'admin",
+     *  @OA\Parameter(
+     *         name="candidature",
+     *         in="path",
+     *         required=true,
+     *         description="ID de la candidature",
+     *         @OA\Schema(type="integer")
+     * ),
+     *     @OA\Response(response="200", description="succes")
+     * )
+     */
     public function refuser(Candidature $candidature)
     {
         $user = $candidature->user->email;
