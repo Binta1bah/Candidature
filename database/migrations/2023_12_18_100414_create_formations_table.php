@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('libelle');
             $table->string('duree');
             $table->string('description');
+            $table->boolean('cloturee')->default(0);
             $table->timestamps();
         });
     }

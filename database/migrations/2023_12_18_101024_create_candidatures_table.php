@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('candidatures', function (Blueprint $table) {
             $table->id();
-            $table->boolean('etat')->default(0);
+            $table->enum('etat', ['Accepter', 'Refuser', 'Attente'])->default('Attente');
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->foreignIdFor(Formation::class)->constrained()->onDelete('cascade');
             $table->timestamps();

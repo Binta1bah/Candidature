@@ -34,10 +34,21 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'admin'], function () {
-    Route::apiResource('formations', FormationController::class);
+    Route::put('/cloturer/{formation}', [FormationController::class, 'edit']);
+    Route::get('/formationsCloturees', [FormationController::class, 'formationCloturee']);
+    Route::get('/formationsNonCloturees', [FormationController::class, 'formationNonCloturee']);
+    Route::put('/accepter/{candidature}', [CandidatureController::class, 'accepter']);
+    Route::put('/refuser/{candidature}', [CandidatureController::class, 'refuser']);
+    Route::get('/candidaturesFormation/{formation}', [CandidatureController::class, 'CandidaturesFormation']);
 });
+Route::apiResource('formations', FormationController::class);
+Route::apiResource('candidatures', CandidatureController::class);
 
-// Route::apiResource('candidatures', CandidatureController::class);
-Route::post('/candidature/{formation}', [CandidatureController::class, 'store']);
+Route::post('/candidater/{formation}', [CandidatureController::class, 'store']);
+Route::get('/mesCandidatures', [CandidatureController::class, 'mesCandidatures']);
+
+
+//Route::post('/candidature/{formation}', [CandidatureController::class, 'store']);
+
 Route::post('/inscription', [UserController::class, 'store']);
 Route::post('/login', [UserController::class, 'login']);
