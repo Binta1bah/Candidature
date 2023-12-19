@@ -6,7 +6,10 @@ use App\Models\Formation;
 use App\Models\Candidature;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\MailAccepter;
+use App\Mail\MailRefuser;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class CandidatureController extends Controller
@@ -126,21 +129,27 @@ class CandidatureController extends Controller
      */
     public function accepter(Candidature $candidature)
     {
+        $user = $candidature->user->email;
         $candidature->etat = 'Accepter';
-        $candidature->save();
-        return response()->json([
-            'message' => 'Candidature acceptée'
-        ]);
+        if ($candidature->save()) {
+            Mail::to($user)->send(new MailAccepter);
+            return response()->json([
+                'message' => 'Candidature acceptée'
+            ]);
+        }
     }
 
 
     public function refuser(Candidature $candidature)
     {
+        $user = $candidature->user->email;
         $candidature->etat = 'Refuser';
-        $candidature->save();
-        return response()->json([
-            'message' => 'Candidature refusée'
-        ]);
+        if ($candidature->save()) {
+            Mail::to($user)->send(new MailRefuser);
+            return response()->json([
+                'message' => 'Candidature refusée'
+            ]);
+        }
     }
 
     /**

@@ -41,14 +41,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/refuser/{candidature}', [CandidatureController::class, 'refuser']);
     Route::get('/candidaturesFormation/{formation}', [CandidatureController::class, 'CandidaturesFormation']);
 });
+
 Route::apiResource('formations', FormationController::class);
 Route::apiResource('candidatures', CandidatureController::class);
 
 Route::post('/candidater/{formation}', [CandidatureController::class, 'store']);
 Route::get('/mesCandidatures', [CandidatureController::class, 'mesCandidatures']);
-
-
-//Route::post('/candidature/{formation}', [CandidatureController::class, 'store']);
 
 Route::post('/inscription', [UserController::class, 'store']);
 Route::post('/login', [UserController::class, 'login']);
