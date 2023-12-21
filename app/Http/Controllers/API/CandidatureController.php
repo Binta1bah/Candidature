@@ -28,7 +28,7 @@ class CandidatureController extends Controller
 
     public function index()
     {
-        Gate::authorize('store', Candidature::class);
+        Gate::authorize('index', Candidature::class);
 
         $candidatures = Candidature::all();
         return response()->json([

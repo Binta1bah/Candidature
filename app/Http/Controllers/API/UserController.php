@@ -82,7 +82,7 @@ class UserController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|string|min:8',
-            'telephone' => 'required|string|regex:/^(77|78|76|70|75|33)[0-9]{7}$/|max:9',
+            'telephone' => 'required|string',
         ]);
 
         $user = new User();
@@ -200,7 +200,7 @@ class UserController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . auth()->id() . ',id|max:255',
             'password' => 'required|string|min:8',
-            'telephone' => 'required|string|regex:/^(77|78|76|70|75|33)[0-9]{7}$/|max:9',
+            'telephone' => 'required|string',
 
         ]);
 

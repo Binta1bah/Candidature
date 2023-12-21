@@ -4,8 +4,7 @@ namespace Tests\Feature;
 
 use Carbon\Factory;
 use Tests\TestCase;
-use Illuminate\Foundation\Auth\User;
-//use App\Models\User;
+use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -34,17 +33,26 @@ class CandidatTest extends TestCase
 
     public function test_can_see_listeCandidat()
     {
-        // Simuler l'authentification (à ajuster selon votre logique d'authentification)
-        $user = factory(User::class)->create();
+        // Créer un utilisateur 
+        $user = User::create([
+            'nom' => 'Bah',
+            'prenom' => 'oumou',
+            'telephone' => '123456789',
+            'role' => 'Admin',
+            'email' => 'oumou@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        // Simuler l'authentification 
         $this->actingAs($user, 'api');
 
-        // Effectuer une requête HTTP GET vers l'endpoint API
+        // Effectuer une requête 
         $response = $this->get('/api/candidats');
 
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Liste des candidats',
-                // Ajouter d'autres assertions si nécessaire
+                'message' => 'La liste des candidats', 
+                'Candidats' => [],
             ]);
     }
 }
