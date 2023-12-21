@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/info', [UserController::class, 'show']);
     Route::get('/refresh', [UserController::class, 'refresh']);
     Route::put('/update', [UserController::class, 'update']);
+    Route::apiResource('formations', FormationController::class);
 });
 
 Route::group(['middleware' => 'admin'], function () {
@@ -43,7 +44,6 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/candidats', [UserController::class, 'index']);
 });
 
-Route::apiResource('formations', FormationController::class);
 Route::apiResource('candidatures', CandidatureController::class);
 
 Route::post('/candidater/{formation}', [CandidatureController::class, 'store']);
