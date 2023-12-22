@@ -82,8 +82,12 @@ class UserController extends Controller
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|string|min:8',
+<<<<<<< HEAD
             'telephone' => 'required|string'
 
+=======
+            'telephone' => 'required|string',
+>>>>>>> 3910aa3fe2a2f1863cf05d31ed0f1eaa0dbdf7fa
         ]);
 
         $user = new User();
