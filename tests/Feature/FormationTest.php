@@ -18,13 +18,13 @@ class FormationTest extends TestCase
     //     $response->assertStatus(200);
     // }
 
-    public function test_listeFormation() {
+    public function test_listeFormation()
+    {
         $response = $this->get('api/formations');
 
         $response->assertStatus(200);
         $response->assertJson([
             'message' => 'Liste des formations'
         ]);
-
     }
 }
